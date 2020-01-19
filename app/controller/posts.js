@@ -5,15 +5,20 @@ const Controller = require('egg').Controller;
 class PostsController extends Controller {
   async index() {
     const { ctx, service } = this;
-    ctx.logger.info('请求/api/posts');
-    const res = await service.posts.index();
-    ctx.status = 200;
-    ctx.body = {
-      code: 200,
-      data: {
-        list: res,
-      },
-    };
+    try {
+      const res = await service.posts.index();
+      ctx.logger.info('获取文章列表数量为', res.length);
+      ctx.status = 200;
+      ctx.body = {
+        code: 200,
+        data: {
+          list: res,
+        },
+      };
+    } catch (error) {
+      ctx.logger.error('posts.index 查询文章列表出错, error=', error);
+      ctx.status = 500;
+    }
   }
 
   async create() {
