@@ -1,3 +1,8 @@
 {
-  "eslint.run": "onSave"
+  // 禁止其他格式化插件
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    // 启动eslint自动格式化
+    "source.fixAll.eslint": true
+  }
 }
